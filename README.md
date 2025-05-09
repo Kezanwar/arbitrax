@@ -26,8 +26,6 @@
 
 ### AI Trading Engine
 
-### AI Trading Engine
-
 - **Python** – for research, prototyping, and production-grade trading strategies
 - **pandas & NumPy** – for time-series data manipulation and feature engineering
 - **scikit-learn / XGBoost / TensorFlow** – for training predictive models on historical market data
