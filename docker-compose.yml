@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres
+    container_name: arb-postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: arbitrax
+    volumes:
+      - arb-postgres:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: arb-pgadmin
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dev@arbitrax.uk
+      PGADMIN_DEFAULT_PASSWORD: devarbitrax
+    volumes:
+      - arb-pgadmin:/var/lib/pgadmin
+
+volumes:
+  arb-postgres:
+  arb-pgadmin:
