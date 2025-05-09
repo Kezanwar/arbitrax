@@ -17,12 +17,19 @@
 
 ### API
 
-- **Go (Golang)** – for high-performance backend and trade execution
+- **Go (Golang)** – for high-performance concurrent web backend and trade execution
 - **pgx** – PostgreSQL driver and query builder
 - **Goose** – for DB schema migrations
 - **Gorilla/mux** – for routing
 - **Socket.IO** – for live updates/monitoring
-- **Docker** – for containerized development
+
+### Database
+
+- **PostgreSQL** – reliable, high-performance relational database (SQL)
+- **JSONB columns** – for flexible storage of semi-structured strategy configs or trade metadata
+- **Indexes & constraints** – for efficient querying and data integrity (e.g. composite keys on trades)
+- **Time-series data handling** – optimized schema for storing and querying high-frequency price or trade data
+- **Dockerized setup** – for reproducible local development with pgAdmin support
 
 ### AI Trading Engine
 
