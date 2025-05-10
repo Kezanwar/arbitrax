@@ -31,7 +31,7 @@
 - **Time-series data handling** – optimized schema for storing and querying high-frequency price or trade data
 - **Dockerized setup** – for reproducible local development with pgAdmin support
 
-### 🧠 AI Trading Engine
+<!-- ### 🧠 AI Trading Engine
 
 - **Python** – for research, prototyping, and production-grade trading strategies
 - **pandas & NumPy** – for time-series data manipulation and feature engineering
@@ -39,7 +39,7 @@
 - **joblib / multiprocessing / threading / concurrent.futures** – for executing and evaluating multiple strategies in parallel
 - **ta / backtrader / vectorbt** – for technical analysis and backtesting pipelines
 - **WebSocket clients (e.g. `websockets`, `aiohttp`)** – for live price feeds and event-driven signal generation
-- **Jupyter Notebooks** – for exploratory development, model tuning, and visualization
+- **Jupyter Notebooks** – for exploratory development, model tuning, and visualization -->
 
 ### 🖥️ Frontend (Web)
 
