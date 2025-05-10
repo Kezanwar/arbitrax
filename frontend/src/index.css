@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* layout tokens */
+  --color-background: hsl(0 0% 100%);
+  --color-paper: hsl(0 0% 98%);
+  --color-border: hsl(220 14% 90%);
+  --color-muted: hsl(220 14% 95%);
+
+  /* text */
+  --color-primary: hsl(222 47% 11%); /* text-primary */
+  --color-secondary: hsl(222 10% 45%); /* text-secondary */
+
+  /* accents */
+  --color-success: hsl(140 50% 45%);
+  --color-warning: hsl(45 90% 55%);
+  --color-error: hsl(0 70% 55%);
+  --color-info: hsl(210 80% 60%);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  .dark {
+    --color-background: hsl(240 5% 8%);
+    --color-paper: hsl(240 4% 12%);
+    --color-border: hsl(240 4% 30%);
+    --color-muted: hsl(240 4% 25%);
+
+    --color-primary: hsl(0 0% 98%);
+    --color-secondary: hsl(220 15% 70%);
+
+    --color-success: hsl(140 60% 40%);
+    --color-warning: hsl(45 100% 50%);
+    --color-error: hsl(0 80% 55%);
+    --color-info: hsl(210 90% 65%);
+  }
+}
+
+html {
+  font-family: 'Space Grotesk', sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+}
