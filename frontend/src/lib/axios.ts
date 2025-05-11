@@ -35,7 +35,7 @@ export const setSession = (token: string) => {
 };
 
 export const clearSession = () => {
-  localStorage.clear();
+  localStorage.removeItem('accessToken');
   axiosInstance.defaults.headers['x-auth-token'] = '';
 };
 
