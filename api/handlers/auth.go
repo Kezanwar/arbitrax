@@ -49,7 +49,6 @@ func (r *SignInReqBody) validate() error {
 	return nil
 }
 
-// AuthHandler with injected repo
 type AuthHandler struct {
 	UserRepo user_repo.Repository
 }
@@ -58,7 +57,6 @@ func NewAuthHandler(repo user_repo.Repository) *AuthHandler {
 	return &AuthHandler{UserRepo: repo}
 }
 
-// Register endpoint
 func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) (int, error) {
 	defer r.Body.Close()
 
@@ -75,7 +73,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) (int, err
 		return http.StatusInternalServerError, err
 	}
 	if exists {
-		return http.StatusBadRequest, fmt.Errorf("this email already exists")
+		return http.StatusBadRequest, fmt.Errorf("This email already exists")
 	}
 
 	usr, err := h.UserRepo.Create(r.Context(), body.FirstName, body.LastName, body.Email, body.Password)
@@ -94,7 +92,6 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) (int, err
 	})
 }
 
-// Sign-in endpoint
 func (h *AuthHandler) SignIn(w http.ResponseWriter, r *http.Request) (int, error) {
 	defer r.Body.Close()
 
@@ -107,17 +104,18 @@ func (h *AuthHandler) SignIn(w http.ResponseWriter, r *http.Request) (int, error
 	}
 
 	usr, err := h.UserRepo.GetByEmail(r.Context(), body.Email)
+
 	if err != nil {
-		return http.StatusBadRequest, err
+		return http.StatusBadRequest, fmt.Errorf("Invalid credentials")
 	}
 
 	if !usr.IsPassword(body.Password) {
-		return http.StatusBadRequest, fmt.Errorf("incorrect password")
+		return http.StatusBadRequest, fmt.Errorf("Invalid credentials")
 	}
 
 	tkn, err := jwt.Create(jwt.Keys.UUID, usr.UUID)
 	if err != nil {
-		return http.StatusInternalServerError, err
+		return http.StatusInternalServerError, fmt.Errorf("Unable to create authorization session")
 	}
 
 	return output.SuccessResponse(w, r, &ManualAuthResp{
@@ -126,12 +124,11 @@ func (h *AuthHandler) SignIn(w http.ResponseWriter, r *http.Request) (int, error
 	})
 }
 
-// Initialize endpoint (requires Auth middleware to inject user into context)
 func (h *AuthHandler) Initialize(w http.ResponseWriter, r *http.Request) (int, error) {
 	usr, err := GetUserFromCtx(r)
 
 	if err != nil {
-		return http.StatusUnauthorized, fmt.Errorf("unauthorized")
+		return http.StatusUnauthorized, fmt.Errorf("Unauthorized")
 	}
 
 	return output.SuccessResponse(w, r, &AutoAuthResp{
