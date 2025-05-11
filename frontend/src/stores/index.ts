@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import AuthStore from './auth';
-import ThemeStore from './theme';
+import UIStore from './ui';
 
 export class RootStore {
   auth = new AuthStore(this);
-  theme = new ThemeStore();
+  ui = new UIStore();
 }
 
 const store = new RootStore();

@@ -1,22 +1,15 @@
-import { ThemeProvider } from './components/theme/provider';
+import AuthInitializer from './hocs/hocs/auth-initializer';
+import Toast from './components/toast';
+import Routes from './routes';
+import LoadingOverlay from './components/loading-overlay';
 
 function App() {
   return (
-    <ThemeProvider>
-      <div className="bg-background">
-        <div className="bg-background p-4">
-          {' '}
-          <div className="bg-paper text-foreground p-6">
-            <h1 className="text-primary text-3xl font-bold">
-              Welcome to ArbitraX
-            </h1>
-            <p className="text-secondary mt-2">
-              High-speed FX arbitrage in style.
-            </p>
-          </div>
-        </div>
-      </div>
-    </ThemeProvider>
+    <AuthInitializer>
+      <Toast />
+      <LoadingOverlay />
+      <Routes />
+    </AuthInitializer>
   );
 }
 
