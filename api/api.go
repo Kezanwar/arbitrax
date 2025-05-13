@@ -14,7 +14,7 @@ import (
 
 func NewAPI(ctx context.Context, pool *pgxpool.Pool) (*http.Server, error) {
 	//repositories
-	userRepo := user_repo.NewPgxUserRepo(pool)
+	userRepo := user_repo.NewUserRepo(pool)
 
 	//handlers
 	authHandler := handlers.NewAuthHandler(userRepo)
@@ -31,7 +31,7 @@ func NewAPI(ctx context.Context, pool *pgxpool.Pool) (*http.Server, error) {
 	routes.Register(api, authHandler, authMiddleware)
 
 	return &http.Server{
-		Addr:    ":3000",
+		Addr:    PORT,
 		Handler: r,
 	}, nil
 }

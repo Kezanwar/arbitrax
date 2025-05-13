@@ -19,17 +19,16 @@ import (
 */
 
 type Model struct {
-	ID        int       `json:"id"`
-	UUID      string    `json:"uuid"`
-	FirstName string    `json:"first_name"`
-	LastName  string    `json:"last_name"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password"`
-	AuthOTP   string    `json:"auth_otp"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID        int       `json:"id" db:"id"`
+	UUID      string    `json:"uuid" db:"uuid"`
+	FirstName string    `json:"first_name" db:"first_name"`
+	LastName  string    `json:"last_name" db:"last_name"`
+	Email     string    `json:"email" db:"email"`
+	Password  string    `json:"-" db:"password"`
+	AuthOTP   string    `json:"-" db:"auth_otp"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 }
-
 type ToClient struct {
 	FirstName string    `json:"first_name"`
 	LastName  string    `json:"last_name"`
