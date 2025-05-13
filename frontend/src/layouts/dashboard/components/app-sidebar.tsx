@@ -1,15 +1,13 @@
 import * as React from 'react';
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
+  User,
   Map,
   PieChart,
   Settings2,
-  SquareTerminal
+  SquareTerminal,
+  CreditCard
 } from 'lucide-react';
 
 import { NavMain } from '@app/layouts/dashboard/components/nav-main';
@@ -27,41 +25,20 @@ import TopSection from './top-section';
 
 // This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg'
-  },
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise'
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup'
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free'
-    }
-  ],
   navMain: [
     {
-      title: 'Playground',
+      title: 'Agents',
       url: '#',
-      icon: SquareTerminal,
+
+      icon: Bot,
       isActive: true,
       items: [
         {
-          title: 'History',
+          title: 'View',
           url: '#'
         },
         {
-          title: 'Starred',
+          title: 'Create',
           url: '#'
         },
         {
@@ -71,9 +48,9 @@ const data = {
       ]
     },
     {
-      title: 'Models',
+      title: 'Strategies',
       url: '#',
-      icon: Bot,
+      icon: SquareTerminal,
       items: [
         {
           title: 'Genesis',
@@ -113,9 +90,9 @@ const data = {
       ]
     },
     {
-      title: 'Settings',
+      title: 'Trades',
       url: '#',
-      icon: Settings2,
+      icon: PieChart,
       items: [
         {
           title: 'General',
@@ -136,21 +113,21 @@ const data = {
       ]
     }
   ],
-  projects: [
+  account: [
     {
-      name: 'Design Engineering',
+      name: 'Billing',
       url: '#',
-      icon: Frame
+      icon: CreditCard
     },
     {
-      name: 'Sales & Marketing',
+      name: 'Subscription',
       url: '#',
-      icon: PieChart
+      icon: Settings2
     },
     {
-      name: 'Travel',
+      name: 'Profile',
       url: '#',
-      icon: Map
+      icon: User
     }
   ]
 };
@@ -163,7 +140,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavProjects account={data.account} />
       </SidebarContent>
       <SidebarFooter className="mb-2">
         <NavUser />

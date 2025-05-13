@@ -16,7 +16,7 @@ class UIStore {
 
     const saved = localStorage.getItem('$MobX-theme') as Theme;
     if (saved) {
-      this.theme = saved;
+      this.setTheme(saved);
     }
 
     document.documentElement.classList.remove('light', 'dark');

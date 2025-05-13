@@ -13,7 +13,7 @@ import store from '@app/stores';
 import { useLocation, useNavigate } from 'react-router';
 
 import { errorHandler } from '@app/lib/axios';
-import { Typography } from '@app/components/ui/typography';
+
 import { toast } from 'sonner';
 
 const LoginForm: FC = ({ ...props }) => {
@@ -69,9 +69,6 @@ const LoginForm: FC = ({ ...props }) => {
                     placeholder="johndoe@example.com"
                   />
                   <RHFInput name="password" label="Password" type="password" />
-                  <Typography>
-                    {methods.formState.errors.root?.message}
-                  </Typography>
                 </div>
                 <Button type="submit" className="w-full">
                   Login
