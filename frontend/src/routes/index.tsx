@@ -1,14 +1,10 @@
-import AuthGuard from '@app/hocs/hocs/auth-guard';
-import Home from '@app/pages/home';
-// import HomePage from '@app/pages/home';
-import Signin from '@app/pages/sign-in';
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 
-// pages
-// import Home from '@app/pages/Home';
-// import Links from '@app/pages/Links';
-// import File from '@app/pages/File';
+import AuthGuard from '@app/hocs/hocs/auth-guard';
+import Home from '@app/pages/home';
+import Register from '@app/pages/register';
+import Signin from '@app/pages/sign-in';
 
 const paths = [
   {
@@ -20,7 +16,7 @@ const paths = [
     )
   },
   { path: '/sign-in', element: <Signin /> },
-  { path: '/register', element: <Signin /> }
+  { path: '/register', element: <Register /> }
 ];
 
 const Routes: React.FC = () => {

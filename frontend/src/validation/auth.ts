@@ -15,7 +15,10 @@ export const RegisterSchema = object().shape({
   email: string()
     .required('Email is required')
     .email('Email must be a valid email address'),
+  mobile_country: string().required('Country code is required'),
+  mobile_number: string().required('Mobile number is required'),
   password: string()
+    .required()
     .matches(/[@$!%*#?&]+/, 'Password must have special character')
     .matches(/\d+/, 'Password must have one number')
     .matches(/[a-z]+/, 'Password must have one lowercase character')

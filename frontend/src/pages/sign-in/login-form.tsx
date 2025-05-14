@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { errorHandler } from '@app/lib/axios';
 
 import { toast } from 'sonner';
+import { Link } from 'react-router-dom';
 
 const LoginForm: FC = ({ ...props }) => {
   const nav = useNavigate();
@@ -57,11 +58,11 @@ const LoginForm: FC = ({ ...props }) => {
         <CardContent>
           <CardTitle className="mb-2">Welcome Back</CardTitle>
           <div className="text-muted-foreground *:[a]:hover:text-primary text-left text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-            New here? <a href="#">Sign up</a>
+            New here? <Link to={'/register'}>Sign up</Link>
           </div>
           <div className={cn('mt-8 flex flex-col gap-6')} {...props}>
             <form onSubmit={methods.handleSubmit(onSubmit)}>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5">
                 <div className="grid gap-3">
                   <RHFInput
                     name="email"
@@ -104,9 +105,8 @@ const LoginForm: FC = ({ ...props }) => {
             </form>
 
             <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-              By clicking continue, you agree to our{' '}
-              <a href="#">Terms of Service</a> and{' '}
-              <a href="#">Privacy Policy</a>.
+              By signing in, you agree to our <a href="#">Terms of Service</a>{' '}
+              and <a href="#">Privacy Policy</a>.
             </div>
           </div>
         </CardContent>

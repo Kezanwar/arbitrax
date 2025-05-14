@@ -125,6 +125,8 @@ html {
   }
 }
 
+/* === Customizing Sonner/Toast === */
+
 [data-sonner-toast][data-styled='true'] {
   gap: 12px !important;
   align-items: flex-start !important;
@@ -138,6 +140,36 @@ html {
   }
 }
 
-button {
+/* === Cusotmising Button/Links === */
+
+button,
+a {
   cursor: pointer;
+}
+
+/* === Custom Scrollbars === */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* WebKit scrollbar styling */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-ring);
 }

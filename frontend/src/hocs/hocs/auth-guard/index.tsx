@@ -7,7 +7,6 @@ type Props = {
 };
 
 const AuthGuard: FC<Props> = observer(({ children }) => {
-  console.log(store.auth.isInitialized, !store.auth.isAuthenticated);
   if (store.auth.isInitialized && !store.auth.isAuthenticated) {
     return (
       <Navigate to={'/sign-in'} state={{ to: window.location.pathname }} />
