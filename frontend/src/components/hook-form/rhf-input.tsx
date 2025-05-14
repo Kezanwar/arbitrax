@@ -23,9 +23,8 @@ const RHFInput = ({
   placeholder,
   type = 'text',
   as = 'input',
-  startIcon,
-  endIcon,
-  className
+  className,
+  endIcon
 }: RHFInputProps) => {
   const { control, formState } = useFormContext();
   const error = formState.errors?.[name]?.message as string | undefined;
@@ -39,25 +38,34 @@ const RHFInput = ({
           {label}
         </Label>
       )}
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-          <Wrapper
-            id={name}
-            type={type}
-            placeholder={placeholder}
-            {...field}
-            value={field.value ?? ''}
-            className={cn(
-              className,
-              error && 'border-destructive',
-              startIcon && 'pl-10',
-              endIcon && 'pr-10'
-            )}
-          />
+
+      <div className="relative">
+        <Controller
+          name={name}
+          control={control}
+          render={({ field }) => (
+            <Wrapper
+              id={name}
+              type={type}
+              placeholder={placeholder}
+              {...field}
+              value={field.value ?? ''}
+              className={cn(
+                className,
+                endIcon && 'pr-10',
+                error && 'border-destructive'
+              )}
+            />
+          )}
+        />
+
+        {endIcon && (
+          <span className="text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer">
+            {endIcon}
+          </span>
         )}
-      />
+      </div>
+
       {error && (
         <Typography className="mt-1 text-xs text-balance" color="destructive">
           {error}

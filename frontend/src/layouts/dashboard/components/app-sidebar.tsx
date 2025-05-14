@@ -3,7 +3,6 @@ import {
   BookOpen,
   Bot,
   User,
-  Map,
   PieChart,
   Settings2,
   SquareTerminal,
@@ -23,26 +22,48 @@ import {
 } from '@app/components/ui/sidebar';
 import TopSection from './top-section';
 
-// This is sample data.
 const data = {
   navMain: [
     {
-      title: 'Agents',
+      title: 'AI Agents',
       url: '#',
 
       icon: Bot,
       isActive: true,
       items: [
         {
-          title: 'View',
+          title: 'Manage',
           url: '#'
         },
         {
-          title: 'Create',
+          title: 'Deploy',
           url: '#'
         },
         {
           title: 'Settings',
+          url: '#'
+        }
+      ]
+    },
+    {
+      title: 'Trades',
+      url: '#',
+      icon: PieChart,
+      items: [
+        {
+          title: 'General',
+          url: '#'
+        },
+        {
+          title: 'Team',
+          url: '#'
+        },
+        {
+          title: 'Billing',
+          url: '#'
+        },
+        {
+          title: 'Limits',
           url: '#'
         }
       ]
@@ -67,7 +88,7 @@ const data = {
       ]
     },
     {
-      title: 'Documentation',
+      title: 'Reports',
       url: '#',
       icon: BookOpen,
       items: [
@@ -85,29 +106,6 @@ const data = {
         },
         {
           title: 'Changelog',
-          url: '#'
-        }
-      ]
-    },
-    {
-      title: 'Trades',
-      url: '#',
-      icon: PieChart,
-      items: [
-        {
-          title: 'General',
-          url: '#'
-        },
-        {
-          title: 'Team',
-          url: '#'
-        },
-        {
-          title: 'Billing',
-          url: '#'
-        },
-        {
-          title: 'Limits',
           url: '#'
         }
       ]

@@ -22,5 +22,7 @@ export const postRegister = (data: TRegisterForm) =>
     first_name: data.first_name,
     last_name: data.last_name,
     email: data.email,
+    mobile_country: data.mobile_country,
+    mobile_number: data.mobile_number,
     password: data.password
   });
