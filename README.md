@@ -2,16 +2,17 @@
 
 ## 🧠 About ArbitraX
 
-**ArbitraX** is a high-performance algorithmic trading platform designed to execute real-time currency arbitrage strategies and a production-grade system designed with scalability and extensibility in mind.
+**ArbitraX** is a high-performance algorithmic trading platform designed to execute real-time currency arbitrage and strategy-driven trades across FX and crypto markets. It combines the speed of **Golang** with the intelligence of **Python-based AI agents**, and gives users the ability to deploy their own smart trading bots — all running on our underlying infrastructure.
 
 ## 🚀 Features
 
 - ⚡ **Real-time arbitrage execution** across multiple FX/Crypto platforms
 - 🧮 **Concurrent trade processing** using Go routines and WaitGroups
+- 🧠 **User-deployable AI agents** powered by real ML strategies
 - 🗺️ **Multi-exchange support** with modular integration
 - 🔧 **Tested and extensible architecture**
 - 📊 **API-first** approach for managing trades, strategies, and logs
-- 💬 **Web dashboard** for monitoring activity (in progress)
+- 💬 **Web dashboard** for configuring agents and monitoring performance (in progress)
 
 ## 🛠️ Tech Stack
 
@@ -26,25 +27,24 @@
 ### 🗃️ Database
 
 - **PostgreSQL** – reliable, high-performance relational database (SQL)
-- **JSONB columns** – for flexible storage of semi-structured strategy configs or trade metadata
+- **JSONB columns** – for flexible storage of semi-structured strategy configs or agent metadata
 - **Indexes & constraints** – for efficient querying and data integrity (e.g. composite keys on trades)
 - **Time-series data handling** – optimized schema for storing and querying high-frequency price or trade data
 - **Dockerized setup** – for reproducible local development with pgAdmin support
 
-<!-- ### 🧠 AI Trading Engine
+### 🤖 AI Agent Engine
 
-- **Python** – for research, prototyping, and production-grade trading strategies
-- **pandas & NumPy** – for time-series data manipulation and feature engineering
-- **scikit-learn / XGBoost / TensorFlow** – for training predictive models on historical market data
-- **joblib / multiprocessing / threading / concurrent.futures** – for executing and evaluating multiple strategies in parallel
-- **ta / backtrader / vectorbt** – for technical analysis and backtesting pipelines
-- **WebSocket clients (e.g. `websockets`, `aiohttp`)** – for live price feeds and event-driven signal generation
-- **Jupyter Notebooks** – for exploratory development, model tuning, and visualization -->
+- **Python** – for powering intelligent agent behavior
+- **pandas & NumPy** – for processing market data streams
+- **scikit-learn / XGBoost / TensorFlow** – for predictive models and reinforcement learning agents
+- **threading / multiprocessing** – for concurrent agent strategy execution
+- **WebSocket clients** – for live market feeds and trigger-based trading
+- **Custom orchestration** – to manage AI agents per user with sandboxed execution
 
 ### 🖥️ Frontend (Web)
 
-- **React v19** – for building an admin interface
+- **React v18** – for building the user dashboard
 - **Tailwind CSS** – for styling
 - **TypeScript** – for type safety
-- **React Query** – for API data management
-- **MobX** – for state management
+- **React Query** – for API state and data fetching
+- **MobX** – for UI state management
