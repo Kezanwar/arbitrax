@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	user_memory_cache "Arbitrax/pkg/cache/user_memory"
 	"Arbitrax/pkg/constants"
 	user_repo "Arbitrax/pkg/repositories/user"
 
@@ -11,42 +12,75 @@ import (
 	"net/http"
 )
 
-// AuthMiddleware returns a Middleware that uses the injected user.Repository
-func AuthMiddleware(repo user_repo.Repository) Middleware {
+func AuthCachedMiddleware(repo user_repo.Repository, cache *user_memory_cache.Cache) Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			token := r.Header.Get(constants.AUTH_TOKEN_HEADER)
 			if len(token) == 0 {
-				r.Body.Close()
 				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth token required"})
 				return
 			}
 
 			parsed, err := jwt.Parse(token)
 			if err != nil {
-				r.Body.Close()
 				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: err.Error()})
 				return
 			}
 
 			id, ok := parsed["uuid"].(string)
 			if !ok || !uuid.Validate(id) {
-				r.Body.Close()
-				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth token failed"})
+				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth token invalid"})
+				return
+			}
+
+			if usr := cache.Get(id); usr != nil {
+				ctx := context.WithValue(r.Context(), constants.USER_CTX, usr)
+				next.ServeHTTP(w, r.WithContext(ctx))
 				return
 			}
 
 			usr, err := repo.GetByUUID(r.Context(), id)
-			if err != nil {
-				r.Body.Close()
-				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth error"})
-				return
-			}
-			if usr == nil {
-				r.Body.Close()
+			if err != nil || usr == nil {
 				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth failed"})
 				return
 			}
+
+			cache.Set(id, usr)
+
+			ctx := context.WithValue(r.Context(), constants.USER_CTX, usr)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		})
+	}
+}
+
+func AuthAlwaysFreshMiddleware(repo user_repo.Repository, cache *user_memory_cache.Cache) Middleware {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			token := r.Header.Get(constants.AUTH_TOKEN_HEADER)
+			if len(token) == 0 {
+				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth token required"})
+				return
+			}
+
+			parsed, err := jwt.Parse(token)
+			if err != nil {
+				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: err.Error()})
+				return
+			}
+
+			id, ok := parsed["uuid"].(string)
+			if !ok || !uuid.Validate(id) {
+				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth token invalid"})
+				return
+			}
+
+			usr, err := repo.GetByUUID(r.Context(), id)
+			if err != nil || usr == nil {
+				output.WriteJson(w, r, http.StatusForbidden, output.MessageResponse{Message: "Auth failed"})
+				return
+			}
+
+			cache.Set(id, usr)
 
 			ctx := context.WithValue(r.Context(), constants.USER_CTX, usr)
 			next.ServeHTTP(w, r.WithContext(ctx))

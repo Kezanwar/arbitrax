@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "found": 15311,
+    "returned": 5,
+    "limit": 5,
+    "page": 1
+  },
+  "data": [
+    {
+      "uuid": "50619cdf-504f-4f84-9c74-33289fd1481d",
+      "title": "Visa shares uptick for seven consecutive sessions (NYSE:V)",
+      "description": "Visa (V) stock rises 1.6%, marking 7 days of gains and a 13% YTD climb. With strong Q2 earnings, analysts remain cautious as inflation cools.",
+      "keywords": "",
+      "snippet": "Visa (NYSE:V) shares clock seven straight sessions of gains, as the stock moved 1.6% higher at $362.21 on Thursday.\n\nThe payment technology firm gained nearly 2...",
+      "url": "https://seekingalpha.com/news/4449026-visa-shares-uptick-for-seven-consecutive-sessions",
+      "image_url": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/79989029/image_79989029.jpg?io=getty-c-w750",
+      "language": "en",
+      "published_at": "2025-05-15T17:07:02.000000Z",
+      "source": "seekingalpha.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "V",
+          "name": "Visa Inc.",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Financial Services",
+          "match_score": 39.04685,
+          "sentiment_score": 0.5701,
+          "highlights": [
+            {
+              "highlight": "Visa (<em>NYSE:V</em>) shares clock seve[+237 characters]",
+              "sentiment": 0.8442,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Visa shares uptick for seven consecutive sessions (<em>NYSE:V</em>)",
+              "sentiment": 0.296,
+              "highlighted_in": "title"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    },
+    {
+      "uuid": "0f679ecf-6bd2-4e6b-94a5-40f3a43d37ab",
+      "title": "CoreWeave CEO defends capex plans, says company is meeting 'demand signals' from major hyperscalers",
+      "description": "The renter of Nvidia-powered AI servers said it expects capex of $20 billion to $23 billion for the year.",
+      "keywords": "Breaking News: Technology, Breaking News: Earnings, The Edge, NVIDIA Corp, Microsoft Corp, CoreWeave Inc, Earnings, Technology, business news",
+      "snippet": "Michael Intrator, founder and CEO of CoreWeave Inc., Nvidia-backed cloud services provider, attends his company's IPO at the Nasdaq Market in New York City on M...",
+      "url": "https://www.cnbc.com/2025/05/15/coreweave-earnings-ai.html",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/108122996-17431838782025-03-28t174351z_436556732_rc2emdaff7p1_rtrmadp_0_coreweave-ipo.jpeg?v=1743439739&w=1920&h=1080",
+      "language": "en",
+      "published_at": "2025-05-15T16:59:14.000000Z",
+      "source": "cnbc.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "NVDA",
+          "name": "NVIDIA Corporation",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Technology",
+          "match_score": 14.638639,
+          "sentiment_score": 0.4598,
+          "highlights": [
+            {
+              "highlight": "., <em>Nvidia</em>-backed cloud services[+288 characters]",
+              "sentiment": 0.8807,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Some investors raised issues over the co[+295 characters]",
+              "sentiment": 0.0772,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "CoreWeave has accrued a growing list of [+269 characters]",
+              "sentiment": 0.4215,
+              "highlighted_in": "main_text"
+            }
+          ]
+        },
+        {
+          "symbol": "MSFT",
+          "name": "Microsoft Corporation",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Technology",
+          "match_score": 10.667736,
+          "sentiment_score": 0.4215,
+          "highlights": [
+            {
+              "highlight": "CoreWeave has accrued a growing list of [+269 characters]",
+              "sentiment": 0.4215,
+              "highlighted_in": "main_text"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    },
+    {
+      "uuid": "0516ef3b-97b4-41b3-953d-782a0db5b0d3",
+      "title": "DICK'S Sporting Goods' Foot Locker Deal Is Highly Questionable (NYSE:DKS)",
+      "description": "DICK'S Sporting Goods, Inc.'s Foot Locker, Inc. acquisition raises concerns on growth and risks. Learn my reaction to this deal and strategy for DKS and FL stock.",
+      "keywords": "",
+      "snippet": "Over fifteen years of experience making contrarian bets based on my macro view and stock-specific turnaround stories to garner outsized returns with a favorable...",
+      "url": "https://seekingalpha.com/article/4787203-dicks-sporting-goods-foot-locker-deal-is-highly-questionable",
+      "image_url": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/1044836302/image_1044836302.jpg?io=getty-c-w1536",
+      "language": "en",
+      "published_at": "2025-05-15T16:59:02.000000Z",
+      "source": "seekingalpha.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "DKS",
+          "name": "DICK'S Sporting Goods, Inc.",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Consumer Cyclical",
+          "match_score": 130.48581,
+          "sentiment_score": -0.3535,
+          "highlights": [
+            {
+              "highlight": "<em>DICK'S</em> <em>Sporting</em> <em>Goods</em>' Foot Locker Deal Is Highly Questionable (<em>NYSE:DKS</em>)",
+              "sentiment": -0.3535,
+              "highlighted_in": "title"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    },
+    {
+      "uuid": "cde14b61-99ae-45f7-8c39-9a3a224713c2",
+      "title": "Mortgage rates rise for 1st time in weeks, Freddie Mac says",
+      "description": "Mortgage rates rose this week, according to data from Freddie Mac released on Thursday. The average rate on the 30-year fixed mortgage is 6.81%, up from 6.76% last week.",
+      "keywords": "",
+      "snippet": "Mortgage rates increased for the first time since last month, mortgage buyer Freddie Mac said Thursday.\n\nFreddie Mac's latest Primary Mortgage Market Survey, re...",
+      "url": "https://www.foxbusiness.com/economy/mortgage-rates-may-15-2025",
+      "image_url": "https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2024/03/0/0/House-for-Sale.jpg?ve=1&tl=1",
+      "language": "en",
+      "published_at": "2025-05-15T16:55:26.000000Z",
+      "source": "foxbusiness.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "FMCC",
+          "name": "Freddie Mac",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Financial Services",
+          "match_score": 111.41844,
+          "sentiment_score": 0.1366,
+          "highlights": [
+            {
+              "highlight": "Mortgage rates increased for the first t[+272 characters]",
+              "sentiment": 0.2732,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "Mortgage rates rise for 1st time in weeks, <em>Freddie</em> <em>Mac</em> says",
+              "sentiment": 0,
+              "highlighted_in": "title"
+            }
+          ]
+        }
+      ],
+      "similar": [
+        {
+          "uuid": "da1aed4d-b4d2-4061-a789-5708d4fe46be",
+          "title": "Freddie Mac 30 year mortgage rate 6.81% up from 6.76% last week",
+          "description": "Freddie Mac mortgage rate data for the current week",
+          "keywords": "",
+          "snippet": "Freddie Mac 30 year mortgage rate for the current week rises to 6.81% from 6.76%\n\nU.S. housing data continue to paint a mixed picture. New‑home sales rose sol...",
+          "url": "https://www.forexlive.com/news/freddie-mac-30-year-mortgage-rate-681-up-from-676-last-week-20250515/",
+          "image_url": "https://images.forexlive.com/fl-static/fl-thumbnail.jpg",
+          "language": "en",
+          "published_at": "2025-05-15T16:18:40.000000Z",
+          "source": "forexlive.com",
+          "relevance_score": null,
+          "entities": [
+            {
+              "symbol": "FMCC",
+              "name": "Freddie Mac",
+              "exchange": null,
+              "exchange_long": null,
+              "country": "us",
+              "type": "equity",
+              "industry": "Financial Services",
+              "match_score": 107.742035,
+              "sentiment_score": 0,
+              "highlights": [
+                {
+                  "highlight": "<em>Freddie</em> <em>Mac</em> 30 year mo[+289 characters]",
+                  "sentiment": 0,
+                  "highlighted_in": "main_text"
+                },
+                {
+                  "highlight": "<em>Freddie</em> <em>Mac</em> 30 year mortgage rate 6.81% up from 6.76% last week",
+                  "sentiment": 0,
+                  "highlighted_in": "title"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "60679079-c588-40e8-a330-6a493c9611c1",
+          "title": "Mortgage rates move higher on positive economic news",
+          "description": "The bond yields that underpin mortgage rates rose this week after the US and China cut a temporary trade deal. That led to an uptick in average mortgage rates.",
+          "keywords": "Mortgage rates, interest rates, recession fears, mortgage rate",
+          "snippet": "Mortgage rates rose slightly this week as easing trade tensions between the US and China gave Wall Street more confidence that the economy could avoid entering ...",
+          "url": "https://finance.yahoo.com/news/mortgage-rates-move-higher-on-positive-economic-news-160446770.html",
+          "image_url": "https://s.yimg.com/ny/api/res/1.2/h3dbMzaPM3.0.abE4fB7fw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2025-05/300dc280-319d-11f0-9633-bd9a4e37c4c0",
+          "language": "en",
+          "published_at": "2025-05-15T16:04:46.000000Z",
+          "source": "finance.yahoo.com",
+          "relevance_score": null,
+          "entities": [
+            {
+              "symbol": "FMCC",
+              "name": "Freddie Mac",
+              "exchange": null,
+              "exchange_long": null,
+              "country": "us",
+              "type": "equity",
+              "industry": "Financial Services",
+              "match_score": 29.968664,
+              "sentiment_score": 0,
+              "highlights": [
+                {
+                  "highlight": "The average 30-year mortgage rate jumped[+114 characters]",
+                  "sentiment": 0,
+                  "highlighted_in": "main_text"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "uuid": "96f0f765-e20c-4802-a071-9e72153403eb",
+          "title": "Mortgage and refinance interest rates today, May 15, 2025: Rates inch up — but just barely",
+          "description": "These are today's mortgage and refinance rates. Interest rates aren't up drastically enough for your potential monthly payment to spike. Lock in your rate today.",
+          "keywords": "mortgage rates, current mortgage rates, mortgage refinance rates, current mortgage rate, mortgage rate, interest rates, lowest mortgage rate, mortgage calculator, monthly payment, Freddie Mac, mortgage insurance",
+          "snippet": "Mortgage interest rates have increased this week. According to Freddie Mac, the average 30-year fixed mortgage rate has risen by five basis points to 6.81%, and...",
+          "url": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-rates-today-thursday-may-15-2025-100042317.html",
+          "image_url": "https://s.yimg.com/ny/api/res/1.2/RoIXxvn1UzNI5EghyfptMQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2024-04/ab364f60-fcfe-11ee-b9f4-32f16cee3a7b",
+          "language": "en",
+          "published_at": "2025-05-15T10:00:42.000000Z",
+          "source": "finance.yahoo.com",
+          "relevance_score": null,
+          "entities": [
+            {
+              "symbol": "FMCC",
+              "name": "Freddie Mac",
+              "exchange": null,
+              "exchange_long": null,
+              "country": "us",
+              "type": "equity",
+              "industry": "Financial Services",
+              "match_score": 27.274273,
+              "sentiment_score": 0.148,
+              "highlights": [
+                {
+                  "highlight": "According to <em>Freddie</em> <em>Mac</e[+311 characters]",
+                  "sentiment": 0.296,
+                  "highlighted_in": "main_text"
+                },
+                {
+                  "highlight": "According to <em>Freddie</em> <em>Mac</e[+229 characters]",
+                  "sentiment": 0,
+                  "highlighted_in": "main_text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uuid": "b904e0c4-c7a1-4beb-8ac7-bc32c8b13567",
+      "title": "What does the DICK's/Foot Locker merger mean for Nike's European rivals? (DKS:NYSE)",
+      "description": "Explore the impact of DICK's $2.4B buyout of Foot Locker on the European sportswear market. Discover how it benefits Nike & challenges rivals like adidas.",
+      "keywords": "",
+      "snippet": "The $2.4B buyout of Foot Locker (NYSE:FL) by DICK’s Sporting Goods (NYSE:DKS) has the potential to reshape the sporting goods retail space in the U.S. as DICK...",
+      "url": "https://seekingalpha.com/news/4448980-what-does-the-dicksfoot-locker-merger-mean-for-nikes-european-rivals",
+      "image_url": "https://static.seekingalpha.com/cdn/s3/uploads/getty_images/157772452/image_157772452.jpg?io=getty-c-w750",
+      "language": "en",
+      "published_at": "2025-05-15T16:54:09.000000Z",
+      "source": "seekingalpha.com",
+      "relevance_score": null,
+      "entities": [
+        {
+          "symbol": "FL",
+          "name": "Foot Locker, Inc.",
+          "exchange": null,
+          "exchange_long": null,
+          "country": "us",
+          "type": "equity",
+          "industry": "Consumer Cyclical",
+          "match_score": 73.39252,
+          "sentiment_score": 0,
+          "highlights": [
+            {
+              "highlight": "The $2.4B buyout of <em>Foot</em> <em>Lo[+203 characters]",
+              "sentiment": 0,
+              "highlighted_in": "main_text"
+            },
+            {
+              "highlight": "What does the DICK's/<em>Foot</em> <em>Locker</em> merger mean for Nike's European rivals? (DKS:NYSE)",
+              "sentiment": 0,
+              "highlighted_in": "title"
+            }
+          ]
+        }
+      ],
+      "similar": []
+    }
+  ]
+}

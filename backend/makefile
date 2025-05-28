@@ -1,5 +1,5 @@
 build: 
-	@go build -o bin/arbitrax-api
+	@cd cmd/api && go build -o ../../bin/arbitrax-api
 
 run:
 	@./bin/arbitrax-api
@@ -7,6 +7,13 @@ run:
 dev: 	
 	@cd cmd/api && go build -o ../../bin/arbitrax-api
 	@./bin/arbitrax-api
+
+create-migration:
+	@if [ -z "$(name)" ]; then \
+		echo "❌ Please provide a migration name with: make create-migration name=your_name"; \
+	else \
+		goose create $(name) go; \
+	fi
 
 test:
 	@go test -v ./... | grep -v '\[no test files\]' 

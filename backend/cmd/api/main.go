@@ -2,6 +2,7 @@ package main
 
 import (
 	"Arbitrax/pkg/db"
+	_ "Arbitrax/pkg/migrations"
 	"context"
 	"log"
 	"net/http"
@@ -23,9 +24,11 @@ func main() {
 		log.Fatalf("DB connection failed: %v", err)
 	}
 
+	httpclient := &http.Client{}
+
 	db.MigrateUp()
 
-	api, err := NewAPI(ctx, pool)
+	api, err := NewAPI(ctx, pool, httpclient)
 
 	if err != nil {
 		log.Fatalf("Server init failed: %v", err)
