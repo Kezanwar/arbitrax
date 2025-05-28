@@ -1,22 +1,54 @@
 import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes, type RouteObject } from 'react-router-dom';
 
-import AuthGuard from '@app/hocs/hocs/auth-guard';
-import Home from '@app/pages/home';
-import Register from '@app/pages/register';
-import Signin from '@app/pages/sign-in';
+import Register from '@app/pages/guest/register';
+import Signin from '@app/pages/guest/sign-in';
+import GuestGuard from '@app/hocs/guest-guard';
+import DashboardLayout from '@app/layouts/dashboard';
+import Home from '@app/pages/dashboard/home';
+import Dummy from '@app/pages/dashboard/dummy';
 
-const paths = [
+const paths: RouteObject[] = [
   {
     path: '/',
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: 'agents',
+        element: <Navigate to={'/agents/all'} replace />,
+        children: [
+          {
+            path: 'all',
+            element: <Dummy page="All Agents" />
+          },
+          {
+            path: 'deploy',
+            element: <Dummy page="Deploy an Agent" />
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: '/sign-in',
     element: (
-      <AuthGuard>
-        <Home />
-      </AuthGuard>
+      <GuestGuard>
+        <Signin />
+      </GuestGuard>
     )
   },
-  { path: '/sign-in', element: <Signin /> },
-  { path: '/register', element: <Register /> }
+  {
+    path: '/register',
+    element: (
+      <GuestGuard>
+        <Register />
+      </GuestGuard>
+    )
+  }
 ];
 
 const Routes: React.FC = () => {

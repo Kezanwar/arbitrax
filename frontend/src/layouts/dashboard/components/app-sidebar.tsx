@@ -26,22 +26,21 @@ const data = {
   navMain: [
     {
       title: 'AI Agents',
-      url: '#',
-
+      url: 'agents/all',
       icon: Bot,
       isActive: true,
       items: [
         {
           title: 'Manage',
-          url: '#'
+          url: 'agents/all'
         },
         {
           title: 'Deploy',
-          url: '#'
+          url: 'agents/deploy'
         },
         {
-          title: 'Settings',
-          url: '#'
+          title: 'What is an AI Agent?',
+          url: 'agents/learn'
         }
       ]
     },

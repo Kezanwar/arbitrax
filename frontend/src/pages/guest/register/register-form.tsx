@@ -4,7 +4,6 @@ import { RegisterSchema, type TRegisterForm } from '@app/validation/auth';
 import { Button } from '@app/components/ui/button';
 import { Card, CardContent, CardTitle } from '@app/components/ui/card';
 import RHFInput from '@app/components/hook-form/rhf-input';
-import RHFSelect from '@app/components/hook-form/rhf-select';
 import store, { observer } from '@app/stores';
 import { EyeIcon, EyeOff, TriangleAlert } from 'lucide-react';
 
@@ -88,19 +87,6 @@ const RegisterForm = observer(() => {
               label="Email"
               type="email"
             />
-            <div className="grid grid-cols-[auto_1fr] gap-4">
-              <RHFSelect
-                name="mobile_country"
-                label="Country Code"
-                options={countryOptions}
-                placeholder="Code"
-              />
-              <RHFInput
-                name="mobile_number"
-                label="Mobile Number"
-                placeholder="7123456789"
-              />
-            </div>
             <RHFInput
               name="password"
               label="Password"
