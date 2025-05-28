@@ -17,8 +17,8 @@ func upCreateStrategiesTable(ctx context.Context, tx *sql.Tx) error {
 	CREATE TABLE strategies (
 		id SERIAL PRIMARY KEY,
 		uuid UUID DEFAULT uuid_generate_v4() UNIQUE,
+		key VARCHAR(100) NOT NULL,
 		label VARCHAR(100) NOT NULL,
-		avatar_url TEXT NOT NULL,
 		description TEXT NOT NULL
 	);`
 
@@ -33,22 +33,22 @@ func upCreateStrategiesTable(ctx context.Context, tx *sql.Tx) error {
 
 	// Seed data
 	type seed struct {
-		label, description string
+		key, label, description string
 	}
 	seeds := []seed{
-		{"Olivia", "A conservative trend-following strategy focused on long-term growth."},
-		{"Jack", "An aggressive mean-reversion strategy designed for high volatility."},
-		{"Emma", "A balanced breakout strategy ideal for sideway markets."},
-		{"Liam", "A scalping strategy that excels in high-frequency environments."},
-		{"Sophia", "A momentum strategy tailored for bullish trends."},
+		{"olivia", "Olivia", "A conservative trend-following strategy focused on long-term growth."},
+		{"jack", "Jack", "An aggressive mean-reversion strategy designed for high volatility."},
+		{"emma", "Emma", "A balanced breakout strategy ideal for sideway markets."},
+		{"liam", "Liam", "A scalping strategy that excels in high-frequency environments."},
+		{"sophia", "Sophia", "A momentum strategy tailored for bullish trends."},
 	}
 
 	for _, s := range seeds {
-		avatarURL := fmt.Sprintf("https://robohash.org/%s.png?size=200x200&set=set1", s.label)
+
 		_, err := tx.ExecContext(ctx, `
-			INSERT INTO strategies (label, avatar_url, description)
+			INSERT INTO strategies (key, label, description)
 			VALUES ($1, $2, $3)`,
-			s.label, avatarURL, s.description,
+			s.key, s.label, s.description,
 		)
 		if err != nil {
 			return fmt.Errorf("failed to seed strategy '%s': %w", s.label, err)

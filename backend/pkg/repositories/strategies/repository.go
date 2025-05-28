@@ -25,7 +25,7 @@ func NewStrategyRepo(db *pgxpool.Pool) *StrategyRepository {
 
 func (r *StrategyRepository) GetAll(ctx context.Context) ([]*Model, error) {
 	var strategies []*Model
-	err := pgxscan.Select(ctx, r.db, &strategies, `SELECT uuid, label, avatar_url, description FROM strategies`)
+	err := pgxscan.Select(ctx, r.db, &strategies, `SELECT * FROM strategies`)
 	if err != nil {
 		return nil, fmt.Errorf("strategy.GetAll query: %w", err)
 	}
@@ -34,7 +34,7 @@ func (r *StrategyRepository) GetAll(ctx context.Context) ([]*Model, error) {
 
 func (r *StrategyRepository) GetByUUID(ctx context.Context, uuid string) (*Model, error) {
 	var s Model
-	err := pgxscan.Get(ctx, r.db, &s, `SELECT uuid, label, avatar_url, description FROM strategies WHERE uuid=$1`, uuid)
+	err := pgxscan.Get(ctx, r.db, &s, `SELECT * FROM strategies WHERE uuid=$1`, uuid)
 	if err != nil {
 		return nil, fmt.Errorf("strategy.GetByUUID: %w", err)
 	}

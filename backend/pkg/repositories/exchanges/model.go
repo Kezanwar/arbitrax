@@ -1,7 +1,8 @@
 package exchanges_repo
 
 type Model struct {
-	UUID    string `json:"uuid" db:"uuid"`
-	Label   string `json:"label" db:"label"`
-	LogoURL string `json:"logo_url" db:"logo_url"`
+	ID    int    `json:"-" db:"id"`
+	UUID  string `json:"uuid" db:"uuid"`
+	Key   string `json:"key" db:"key"`
+	Label string `json:"label" db:"label"`
 }

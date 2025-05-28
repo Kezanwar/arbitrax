@@ -15,25 +15,29 @@ func init() {
 func upCreateExchangesTable(ctx context.Context, tx *sql.Tx) error {
 	createTable := `
 	CREATE TABLE exchanges (
-		uuid UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-		label TEXT NOT NULL,
-		logo_url TEXT NOT NULL,
-		created_at TIMESTAMP DEFAULT now(),
-		updated_at TIMESTAMP DEFAULT now()
+		id SERIAL PRIMARY KEY,
+		uuid UUID DEFAULT uuid_generate_v4() UNIQUE,
+		key VARCHAR(100) NOT NULL,
+		label VARCHAR(100) NOT NULL
 	);`
 
 	if _, err := tx.ExecContext(ctx, createTable); err != nil {
 		return fmt.Errorf("failed to create exchanges table: %w", err)
 	}
 
+	createIndex := `CREATE INDEX idx_exchanges_key ON exchanges(uuid);`
+	if _, err := tx.ExecContext(ctx, createIndex); err != nil {
+		return fmt.Errorf("failed to create index on strategies.key: %w", err)
+	}
+
 	insertSeed := `
-	INSERT INTO exchanges (label, logo_url)
+	INSERT INTO exchanges (key, label)
 	VALUES 
-		('Binance', 'https://logospng.org/wp-content/uploads/binance.png'),
-		('Coinbase', 'https://www.liblogo.com/img-logo/co1496ca97-coinbase-logo-coinbase-promo-code-10-off-january-2022-the-wall-street-journal.png'),
-		('Kraken', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl8LFd933duAONmhOAtoGCgEq25AegXEprQg&s'),
-		('Bybit', 'https://altcoinsbox.com/wp-content/uploads/2022/10/bybit-logo-white.jpg'),
-		('Bitfinex', 'https://eu-images.contentstack.com/v3/assets/blt7dacf616844cf077/blte8f07cd9fa0abae2/679951ca333df67539f84793/bitfinex.png?width=1280&auto=webp&quality=95&format=jpg&disable=upscale');
+		('binance', 'Binance'),
+		('coinbase', 'Coinbase'),
+		('kraken', 'Kraken'),
+		('bybit', 'Bybit'),
+		('bitfinex', 'Bitfinex');
 	`
 
 	if _, err := tx.ExecContext(ctx, insertSeed); err != nil {
@@ -49,3 +53,11 @@ func downCreateExchangesTable(ctx context.Context, tx *sql.Tx) error {
 	}
 	return nil
 }
+
+/*
+        ('Binance', 'https://logospng.org/wp-content/uploads/binance.png'),
+		('Coinbase', 'https://www.liblogo.com/img-logo/co1496ca97-coinbase-logo-coinbase-promo-code-10-off-january-2022-the-wall-street-journal.png'),
+		('Kraken', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQl8LFd933duAONmhOAtoGCgEq25AegXEprQg&s'),
+		('Bybit', 'https://altcoinsbox.com/wp-content/uploads/2022/10/bybit-logo-white.jpg'),
+		('Bitfinex', 'https://eu-images.contentstack.com/v3/assets/blt7dacf616844cf077/blte8f07cd9fa0abae2/679951ca333df67539f84793/bitfinex.png?width=1280&auto=webp&quality=95&format=jpg&disable=upscale');
+*/

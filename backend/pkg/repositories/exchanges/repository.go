@@ -23,7 +23,7 @@ func NewExchangeRepo(db *pgxpool.Pool) *ExchangeRepository {
 
 func (r *ExchangeRepository) GetAll(ctx context.Context) ([]*Model, error) {
 	var exchanges []*Model
-	query := `SELECT uuid, label, logo_url FROM exchanges`
+	query := `SELECT * FROM exchanges`
 	err := pgxscan.Select(ctx, r.db, &exchanges, query)
 	if err != nil {
 		return nil, fmt.Errorf("exchanges.GetAll: %w", err)
@@ -33,7 +33,7 @@ func (r *ExchangeRepository) GetAll(ctx context.Context) ([]*Model, error) {
 
 func (r *ExchangeRepository) GetByUUID(ctx context.Context, uuid string) (*Model, error) {
 	var exchange Model
-	query := `SELECT uuid, label, logo_url FROM exchanges WHERE uuid=$1`
+	query := `SELECT * FROM exchanges WHERE uuid=$1`
 	err := pgxscan.Get(ctx, r.db, &exchange, query, uuid)
 	if err != nil {
 		return nil, fmt.Errorf("exchanges.GetByUUID: %w", err)
