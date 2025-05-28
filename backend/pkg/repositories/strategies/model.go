@@ -1,8 +1,9 @@
 package strategy_repo
 
 type Model struct {
+	ID          int    `json:"-" db:"id"`
 	UUID        string `json:"uuid" db:"uuid"`
+	Key         string `json:"key" db:"key"`
 	Label       string `json:"label" db:"label"`
-	AvatarURL   string `json:"avatar_url" db:"avatar_url"`
 	Description string `json:"description" db:"description"`
 }
