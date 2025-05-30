@@ -3,6 +3,8 @@ package handlers
 import (
 	"Arbitrax/pkg/output"
 	agent_repo "Arbitrax/pkg/repositories/agent"
+	exchanges_repo "Arbitrax/pkg/repositories/exchanges"
+	strategy_repo "Arbitrax/pkg/repositories/strategies"
 
 	"Arbitrax/pkg/services/validate"
 
@@ -12,11 +14,17 @@ import (
 )
 
 type AgentHandler struct {
-	AgentRepo agent_repo.Repository
+	AgentRepo      agent_repo.Repository
+	ExchangesRepo  exchanges_repo.Repository
+	StrategiesRepo strategy_repo.Repository
 }
 
-func NewAgentHandler(repo agent_repo.Repository) *AgentHandler {
-	return &AgentHandler{AgentRepo: repo}
+func NewAgentHandler(repo agent_repo.Repository, e exchanges_repo.Repository, s strategy_repo.Repository) *AgentHandler {
+	return &AgentHandler{
+		AgentRepo:      repo,
+		ExchangesRepo:  e,
+		StrategiesRepo: s,
+	}
 }
 
 // Response types
@@ -125,6 +133,42 @@ func (h *AgentHandler) CreateAgent(w http.ResponseWriter, r *http.Request) (int,
 		if totalAllocation > 1 {
 			return http.StatusBadRequest, fmt.Errorf("total capital allocation for enabled agents would exceed 1.0 (current: %.2f, requested: %.2f, total: %.2f)",
 				totalAllocation-body.CapitalAllocation, body.CapitalAllocation, totalAllocation)
+		}
+	}
+
+	// Fetch all strategies and exchanges for validation
+	allStrategies, err := h.StrategiesRepo.GetAll(r.Context())
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("failed to fetch strategies: %w", err)
+	}
+
+	allExchanges, err := h.ExchangesRepo.GetAll(r.Context())
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("failed to fetch exchanges: %w", err)
+	}
+
+	// Create maps for O(1) lookup
+	strategyMap := make(map[string]bool)
+	for _, strategy := range allStrategies {
+		strategyMap[strategy.Key] = true
+	}
+
+	exchangeMap := make(map[string]bool)
+	for _, exchange := range allExchanges {
+		exchangeMap[exchange.Key] = true
+	}
+
+	// Validate strategies exist
+	for _, strategyKey := range body.Strategies {
+		if !strategyMap[strategyKey] {
+			return http.StatusBadRequest, fmt.Errorf("strategy '%s' does not exist", strategyKey)
+		}
+	}
+
+	// Validate exchanges exist
+	for _, exchangeKey := range body.Exchanges {
+		if !exchangeMap[exchangeKey] {
+			return http.StatusBadRequest, fmt.Errorf("exchange '%s' does not exist", exchangeKey)
 		}
 	}
 

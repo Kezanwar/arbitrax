@@ -16,7 +16,6 @@ func upCreateExchangesTable(ctx context.Context, tx *sql.Tx) error {
 	createTable := `
 	CREATE TABLE exchanges (
 		id SERIAL PRIMARY KEY,
-		uuid UUID DEFAULT uuid_generate_v4() UNIQUE,
 		key VARCHAR(100) NOT NULL,
 		label VARCHAR(100) NOT NULL
 	);`
@@ -25,14 +24,10 @@ func upCreateExchangesTable(ctx context.Context, tx *sql.Tx) error {
 		return fmt.Errorf("failed to create exchanges table: %w", err)
 	}
 
-	createIndex := `CREATE INDEX idx_exchanges_key ON exchanges(uuid);`
-	if _, err := tx.ExecContext(ctx, createIndex); err != nil {
-		return fmt.Errorf("failed to create index on strategies.key: %w", err)
-	}
-
 	insertSeed := `
 	INSERT INTO exchanges (key, label)
 	VALUES 
+		('ibkr', 'IBKR'),
 		('binance', 'Binance'),
 		('coinbase', 'Coinbase'),
 		('kraken', 'Kraken'),
