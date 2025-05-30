@@ -10,7 +10,7 @@ import (
 
 type Repository interface {
 	GetAll(ctx context.Context) ([]*Model, error)
-	GetByUUID(ctx context.Context, uuid string) (*Model, error)
+	GetByKey(ctx context.Context, key string) (*Model, error)
 }
 
 type ExchangeRepository struct {
@@ -31,12 +31,12 @@ func (r *ExchangeRepository) GetAll(ctx context.Context) ([]*Model, error) {
 	return exchanges, nil
 }
 
-func (r *ExchangeRepository) GetByUUID(ctx context.Context, uuid string) (*Model, error) {
+func (r *ExchangeRepository) GetByKey(ctx context.Context, key string) (*Model, error) {
 	var exchange Model
-	query := `SELECT * FROM exchanges WHERE uuid=$1`
-	err := pgxscan.Get(ctx, r.db, &exchange, query, uuid)
+	query := `SELECT * FROM exchanges WHERE key=$1`
+	err := pgxscan.Get(ctx, r.db, &exchange, query, key)
 	if err != nil {
-		return nil, fmt.Errorf("exchanges.GetByUUID: %w", err)
+		return nil, fmt.Errorf("exchanges.GetByKey: %w", err)
 	}
 	return &exchange, nil
 }

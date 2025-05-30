@@ -10,7 +10,7 @@ import (
 
 type Repository interface {
 	GetAll(ctx context.Context) ([]*Model, error)
-	GetByUUID(ctx context.Context, key string) (*Model, error)
+	GetByKey(ctx context.Context, key string) (*Model, error)
 	IsValid(ctx context.Context, key string) (bool, error)
 	FilterInvalid(ctx context.Context, keys []string) ([]string, error)
 }
@@ -32,18 +32,18 @@ func (r *StrategyRepository) GetAll(ctx context.Context) ([]*Model, error) {
 	return strategies, nil
 }
 
-func (r *StrategyRepository) GetByUUID(ctx context.Context, uuid string) (*Model, error) {
+func (r *StrategyRepository) GetByKey(ctx context.Context, key string) (*Model, error) {
 	var s Model
-	err := pgxscan.Get(ctx, r.db, &s, `SELECT * FROM strategies WHERE uuid=$1`, uuid)
+	err := pgxscan.Get(ctx, r.db, &s, `SELECT * FROM strategies WHERE key=$1`, key)
 	if err != nil {
-		return nil, fmt.Errorf("strategy.GetByUUID: %w", err)
+		return nil, fmt.Errorf("strategy.GetByKey: %w", err)
 	}
 	return &s, nil
 }
 
-func (r *StrategyRepository) IsValid(ctx context.Context, uuid string) (bool, error) {
+func (r *StrategyRepository) IsValid(ctx context.Context, key string) (bool, error) {
 	var exists bool
-	err := r.db.QueryRow(ctx, `SELECT EXISTS (SELECT 1 FROM strategies WHERE uuid=$1)`, uuid).Scan(&exists)
+	err := r.db.QueryRow(ctx, `SELECT EXISTS (SELECT 1 FROM strategies WHERE key=$1)`, key).Scan(&exists)
 	if err != nil {
 		return false, fmt.Errorf("strategy.IsValid query: %w", err)
 	}

@@ -16,7 +16,6 @@ func upCreateStrategiesTable(ctx context.Context, tx *sql.Tx) error {
 	createTable := `
 	CREATE TABLE strategies (
 		id SERIAL PRIMARY KEY,
-		uuid UUID DEFAULT uuid_generate_v4() UNIQUE,
 		key VARCHAR(100) NOT NULL,
 		label VARCHAR(100) NOT NULL,
 		description TEXT NOT NULL
@@ -24,11 +23,6 @@ func upCreateStrategiesTable(ctx context.Context, tx *sql.Tx) error {
 
 	if _, err := tx.ExecContext(ctx, createTable); err != nil {
 		return fmt.Errorf("failed to create strategies table: %w", err)
-	}
-
-	createIndex := `CREATE INDEX idx_strategies_key ON strategies(uuid);`
-	if _, err := tx.ExecContext(ctx, createIndex); err != nil {
-		return fmt.Errorf("failed to create index on strategies.key: %w", err)
 	}
 
 	// Seed data

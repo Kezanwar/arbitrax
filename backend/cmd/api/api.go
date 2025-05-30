@@ -40,7 +40,7 @@ func NewAPI(ctx context.Context, pool *pgxpool.Pool, client *http.Client) (*http
 		exchangeRepo,
 		optionsCache,
 	)
-	agentsHandler := handlers.NewAgentHandler(agentsRepo)
+	agentsHandler := handlers.NewAgentHandler(agentsRepo, exchangeRepo, strategyRepo)
 
 	authFresh := middleware.AuthAlwaysFreshMiddleware(userRepo, userCache)
 	authCached := middleware.AuthCachedMiddleware(userRepo, userCache)
