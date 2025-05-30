@@ -11,8 +11,21 @@ import (
 	"net/http"
 )
 
+type AgentHandler struct {
+	AgentRepo agent_repo.Repository
+}
+
+func NewAgentHandler(repo agent_repo.Repository) *AgentHandler {
+	return &AgentHandler{AgentRepo: repo}
+}
+
 // Response types
 type CreateAgentResp struct {
+	Agent *agent_repo.Model `json:"agent"`
+}
+
+type GetAgentsResp struct {
+	Agents []*agent_repo.Model `json:"agents"`
 }
 
 // Request types
@@ -58,8 +71,8 @@ func (r *CreateAgentReqBody) validate() error {
 		}
 	}
 
-	if r.CapitalAllocation <= 0 {
-		return fmt.Errorf("capital_allocation must be greater than 0")
+	if r.CapitalAllocation <= 0 || r.CapitalAllocation > 1 {
+		return fmt.Errorf("capital_allocation must be between 0 and 1")
 	}
 
 	if r.StopLoss < 0 || r.StopLoss > 1 {
@@ -73,18 +86,10 @@ func (r *CreateAgentReqBody) validate() error {
 	return nil
 }
 
-type AgentHandler struct {
-	AgentRepo agent_repo.Repository
-}
-
-func NewAgentHandler(repo agent_repo.Repository) *AgentHandler {
-	return &AgentHandler{AgentRepo: repo}
-}
-
 func (h *AgentHandler) CreateAgent(w http.ResponseWriter, r *http.Request) (int, error) {
 	defer r.Body.Close()
 
-	_, err := GetUserFromCtx(r)
+	user, err := GetUserFromCtx(r)
 
 	if err != nil {
 		return http.StatusUnauthorized, fmt.Errorf("Unauthorized")
@@ -100,25 +105,64 @@ func (h *AgentHandler) CreateAgent(w http.ResponseWriter, r *http.Request) (int,
 		return http.StatusBadRequest, err
 	}
 
-	// exists, err := h.UserRepo.DoesEmailExist(r.Context(), body.Email)
-	// if err != nil {
-	// 	return http.StatusInternalServerError, err
-	// }
-	// if exists {
-	// 	return http.StatusBadRequest, fmt.Errorf("This email already exists")
-	// }
+	// If the agent is enabled, validate capital allocation sum
+	if body.Enabled {
+		// Get all existing agents for this user
+		agents, err := h.AgentRepo.GetAllByUserUUID(r.Context(), user.UUID)
+		if err != nil {
+			return http.StatusInternalServerError, fmt.Errorf("failed to get user agents: %w", err)
+		}
 
-	// usr, err := h.UserRepo.Create(r.Context(), body.FirstName, body.LastName, body.Email, body.Password)
-	// if err != nil {
-	// 	return http.StatusInternalServerError, err
-	// }
+		// Calculate total capital allocation for enabled agents
+		totalAllocation := body.CapitalAllocation
+		for _, agent := range agents {
+			if agent.Enabled {
+				totalAllocation += agent.CapitalAllocation
+			}
+		}
 
-	// tkn, err := jwt.Create(jwt.Keys.UUID, usr.UUID)
-	// if err != nil {
-	// 	return http.StatusInternalServerError, err
-	// }
+		// Check if total allocation exceeds 1
+		if totalAllocation > 1 {
+			return http.StatusBadRequest, fmt.Errorf("total capital allocation for enabled agents would exceed 1.0 (current: %.2f, requested: %.2f, total: %.2f)",
+				totalAllocation-body.CapitalAllocation, body.CapitalAllocation, totalAllocation)
+		}
+	}
 
-	return output.SuccessResponse(w, r, &output.MessageResponse{
-		Message: "hello",
+	// Create the agent
+	agent, err := h.AgentRepo.Create(
+		r.Context(),
+		user.UUID,
+		body.Name,
+		body.Avatar,
+		body.Enabled,
+		body.CapitalAllocation,
+		body.StopLoss,
+		body.TakeProfit,
+		body.Exchanges,
+		body.Strategies,
+		body.TestMode,
+	)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("failed to create agent: %w", err)
+	}
+
+	return output.SuccessResponse(w, r, &CreateAgentResp{
+		Agent: agent,
+	})
+}
+
+func (h *AgentHandler) GetAgents(w http.ResponseWriter, r *http.Request) (int, error) {
+	user, err := GetUserFromCtx(r)
+	if err != nil {
+		return http.StatusUnauthorized, fmt.Errorf("Unauthorized")
+	}
+
+	agents, err := h.AgentRepo.GetAllByUserUUID(r.Context(), user.UUID)
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("failed to get agents: %w", err)
+	}
+
+	return output.SuccessResponse(w, r, &GetAgentsResp{
+		Agents: agents,
 	})
 }

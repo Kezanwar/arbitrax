@@ -6,6 +6,7 @@ import (
 	options_memory_cache "Arbitrax/pkg/cache/options_memory"
 	user_memory_cache "Arbitrax/pkg/cache/user_memory"
 	"Arbitrax/pkg/middleware"
+	agent_repo "Arbitrax/pkg/repositories/agent"
 	exchanges_repo "Arbitrax/pkg/repositories/exchanges"
 	strategy_repo "Arbitrax/pkg/repositories/strategies"
 	user_repo "Arbitrax/pkg/repositories/user"
@@ -29,6 +30,7 @@ func NewAPI(ctx context.Context, pool *pgxpool.Pool, client *http.Client) (*http
 	userRepo := user_repo.NewUserRepo(pool)
 	strategyRepo := strategy_repo.NewStrategyRepo(pool)
 	exchangeRepo := exchanges_repo.NewExchangeRepo(pool)
+	agentsRepo := agent_repo.NewAgentRepo(pool)
 
 	//handlers
 	authHandler := handlers.NewAuthHandler(userRepo)
@@ -38,6 +40,7 @@ func NewAPI(ctx context.Context, pool *pgxpool.Pool, client *http.Client) (*http
 		exchangeRepo,
 		optionsCache,
 	)
+	agentsHandler := handlers.NewAgentHandler(agentsRepo)
 
 	authFresh := middleware.AuthAlwaysFreshMiddleware(userRepo, userCache)
 	authCached := middleware.AuthCachedMiddleware(userRepo, userCache)
@@ -55,6 +58,7 @@ func NewAPI(ctx context.Context, pool *pgxpool.Pool, client *http.Client) (*http
 		authHandler,
 		newsHandler,
 		optionsHandler,
+		agentsHandler,
 		//middleware
 		authFresh,
 		authCached,
