@@ -8,6 +8,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func AgentRoutes(r *mux.Router, h *handlers.AuthHandler, auth middleware.Middleware) {
-	output.MakeRoute(r, "/create", h.Register).Methods("POST", "OPTIONS")
+func AgentRoutes(r *mux.Router, h *handlers.AgentHandler, authCached middleware.Middleware) {
+	output.MakeRoute(r, "/", h.GetAgents, authCached).Methods("GET", "OPTIONS")
+	output.MakeRoute(r, "/create", h.CreateAgent, authCached).Methods("POST", "OPTIONS")
+
 }

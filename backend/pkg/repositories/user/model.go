@@ -19,8 +19,8 @@ import (
 */
 
 type Model struct {
-	ID        int       `json:"id" db:"id"`
-	UUID      string    `json:"uuid" db:"uuid"`
+	ID        int       `json:"-" db:"id"`
+	UUID      string    `json:"-" db:"uuid"`
 	FirstName string    `json:"first_name" db:"first_name"`
 	LastName  string    `json:"last_name" db:"last_name"`
 	Email     string    `json:"email" db:"email"`
@@ -28,23 +28,6 @@ type Model struct {
 	AuthOTP   string    `json:"-" db:"auth_otp"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
-}
-type ToClient struct {
-	FirstName string    `json:"first_name"`
-	LastName  string    `json:"last_name"`
-	Email     string    `json:"email"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
-func (m *Model) ToClient() *ToClient {
-	return &ToClient{
-		FirstName: m.FirstName,
-		LastName:  m.LastName,
-		Email:     m.Email,
-		CreatedAt: m.CreatedAt,
-		UpdatedAt: m.UpdatedAt,
-	}
 }
 
 func (m *Model) IsPassword(to_check string) bool {

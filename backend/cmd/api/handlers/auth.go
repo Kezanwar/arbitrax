@@ -14,12 +14,12 @@ import (
 
 // Response types
 type ManualAuthResp struct {
-	User  *user_repo.ToClient `json:"user"`
-	Token string              `json:"token"`
+	User  *user_repo.Model `json:"user"`
+	Token string           `json:"token"`
 }
 
 type AutoAuthResp struct {
-	User *user_repo.ToClient `json:"user"`
+	User *user_repo.Model `json:"user"`
 }
 
 // Request types
@@ -87,7 +87,7 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) (int, err
 	}
 
 	return output.SuccessResponse(w, r, &ManualAuthResp{
-		User:  usr.ToClient(),
+		User:  usr,
 		Token: tkn,
 	})
 }
@@ -119,7 +119,7 @@ func (h *AuthHandler) SignIn(w http.ResponseWriter, r *http.Request) (int, error
 	}
 
 	return output.SuccessResponse(w, r, &ManualAuthResp{
-		User:  usr.ToClient(),
+		User:  usr,
 		Token: tkn,
 	})
 }
@@ -132,6 +132,6 @@ func (h *AuthHandler) Initialize(w http.ResponseWriter, r *http.Request) (int, e
 	}
 
 	return output.SuccessResponse(w, r, &AutoAuthResp{
-		User: usr.ToClient(),
+		User: usr,
 	})
 }

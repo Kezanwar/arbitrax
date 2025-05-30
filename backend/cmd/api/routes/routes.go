@@ -15,6 +15,7 @@ func Register(
 	authHandler *handlers.AuthHandler,
 	newsHandler *handlers.NewsHandler,
 	optionsHandler *handlers.OptionsHandler,
+	agentsHandler *handlers.AgentHandler,
 	//middlewares
 	authFresh middleware.Middleware,
 	authCached middleware.Middleware) {
@@ -27,6 +28,9 @@ func Register(
 	})
 	output.MakeSubRouter(r, "/options", func(sr *mux.Router) {
 		OptionsRoutes(sr, optionsHandler, authCached)
+	})
+	output.MakeSubRouter(r, "/agents", func(sr *mux.Router) {
+		AgentRoutes(sr, agentsHandler, authCached)
 	})
 
 }

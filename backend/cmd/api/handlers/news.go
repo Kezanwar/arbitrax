@@ -12,7 +12,7 @@ import (
 
 // Response types
 type NewsResp struct {
-	User *user_repo.ToClient `json:"news"`
+	User *user_repo.Model `json:"news"`
 }
 
 type NewsHandler struct {
@@ -38,6 +38,6 @@ func (h *NewsHandler) GetNews(w http.ResponseWriter, r *http.Request) (int, erro
 	fmt.Println(string(bytes))
 
 	return output.SuccessResponse(w, r, &NewsResp{
-		User: usr.ToClient(),
+		User: usr,
 	})
 }
