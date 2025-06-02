@@ -7,7 +7,6 @@ interface ExchangesOptionsResp {
 export interface ExchangeItem {
   key: string;
   label: string;
-  logo_url: string;
 }
 
 export const getExchangesOptions = () =>
@@ -20,7 +19,6 @@ interface StrategiesOptionsResp {
 export interface StrategyItem {
   key: string;
   label: string;
-  avatar_url: string;
   description: string;
 }
 

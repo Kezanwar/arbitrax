@@ -12,27 +12,20 @@ import { postRegister } from '@app/api/auth';
 import { useNavigate } from 'react-router';
 import { errorHandler } from '@app/lib/axios';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-
-const countryOptions = [
-  { label: '🇬🇧 +44', value: '+44' },
-  { label: '🇺🇸 +1', value: '+1' },
-  { label: '🇫🇷 +33', value: '+33' },
-  { label: '🇩🇪 +49', value: '+49' },
-  { label: '🇮🇳 +91', value: '+91' }
-];
+import { useRef, useState } from 'react';
+import TermsAndConditionsModal from './terms-and-conditions';
 
 const RegisterForm = observer(() => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   const methods = useForm<TRegisterForm>({
     resolver: yupResolver(RegisterSchema),
+
     defaultValues: {
       first_name: '',
       last_name: '',
       email: '',
-      mobile_country: countryOptions.find((opt) => opt.value === '+44')?.value,
-      mobile_number: '',
       password: '',
       confirm_password: ''
     }
@@ -40,10 +33,17 @@ const RegisterForm = observer(() => {
 
   const nav = useNavigate();
 
+  const dataRef = useRef<TRegisterForm | null>(null);
+
   const onSubmit = async (data: TRegisterForm) => {
+    dataRef.current = data;
+    setShowTermsModal(true);
+  };
+
+  const onAccept = async () => {
     try {
       store.ui.setIsLoading(true);
-      const res = await postRegister(data);
+      const res = await postRegister(dataRef.current!);
       store.auth.authenticate(res.data);
       nav('/');
     } catch (error) {
@@ -58,6 +58,7 @@ const RegisterForm = observer(() => {
       store.auth.unauthenticate();
     } finally {
       store.ui.setIsLoading(false);
+      dataRef.current = null;
     }
   };
 
@@ -110,13 +111,28 @@ const RegisterForm = observer(() => {
               label="Confirm Password"
               type={showPassword ? 'text' : 'password'}
             />
+
             <Button type="submit" className="w-full">
               Register
             </Button>
-            <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-              By signing up, you agree to our <a href="#">Terms of Service</a>{' '}
-              and <a href="#">Privacy Policy</a>.
+            <div className="text-muted-foreground text-center text-xs text-balance">
+              By signing up, you agree to our{' '}
+              <a className="hover:text-primary underline underline-offset-4">
+                Terms of Service
+              </a>{' '}
+              and{' '}
+              <a
+                href="#"
+                className="hover:text-primary underline underline-offset-4"
+              >
+                Privacy Policy
+              </a>
             </div>
+            <TermsAndConditionsModal
+              onAccept={onAccept}
+              open={showTermsModal}
+              setOpen={setShowTermsModal}
+            />
           </form>
         </CardContent>
       </Card>
