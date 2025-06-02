@@ -12,7 +12,7 @@ import (
 )
 
 type Repository interface {
-	Create(ctx context.Context, firstName, lastName, email, password string) (*Model, error)
+	Create(ctx context.Context, firstName, lastName, email, password, otp string, termsAndConditions bool) (*Model, error)
 	DoesEmailExist(ctx context.Context, email string) (bool, error)
 	GetByEmail(ctx context.Context, email string) (*Model, error)
 	GetByUUID(ctx context.Context, uuid string) (*Model, error)
@@ -27,7 +27,7 @@ func NewUserRepo(db *pgxpool.Pool) *UserRepository {
 	return &UserRepository{db: db}
 }
 
-func (r *UserRepository) Create(ctx context.Context, firstName, lastName, email, password string) (*Model, error) {
+func (r *UserRepository) Create(ctx context.Context, firstName, lastName, email, password, otp string, termsAndConditions bool) (*Model, error) {
 
 	now := time.Now()
 
@@ -37,14 +37,14 @@ func (r *UserRepository) Create(ctx context.Context, firstName, lastName, email,
 	}
 
 	query := `
-		INSERT INTO users (first_name, last_name, email, password, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO users (first_name, last_name, email, password, otp, terms_and_conditions, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 		RETURNING *
 	`
 
 	var user Model
 
-	err = pgxscan.Get(ctx, r.db, &user, query, firstName, lastName, email, hashPass, now, now)
+	err = pgxscan.Get(ctx, r.db, &user, query, firstName, lastName, email, hashPass, otp, termsAndConditions, now, now)
 
 	if err != nil {
 		return nil, fmt.Errorf("user.Create query: %w", err)

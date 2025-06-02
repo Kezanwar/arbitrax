@@ -13,12 +13,12 @@ import (
 
 type mockUserRepo struct {
 	user_repo.Repository // ✅ embed the interface (optional, for clarity/logging)
-	CreateFn             func(ctx context.Context, firstName, lastName, email, password string) (*user_repo.Model, error)
+	CreateFn             func(ctx context.Context, firstName, lastName, email, password, otp string, termsAndConditions bool) (*user_repo.Model, error)
 	DoesEmailExistFn     func(ctx context.Context, email string) (bool, error)
 }
 
-func (m *mockUserRepo) Create(ctx context.Context, firstName, lastName, email, password string) (*user_repo.Model, error) {
-	return m.CreateFn(ctx, firstName, lastName, email, password)
+func (m *mockUserRepo) Create(ctx context.Context, firstName, lastName, email, password, otp string, termsAndConditions bool) (*user_repo.Model, error) {
+	return m.CreateFn(ctx, firstName, lastName, email, password, otp, termsAndConditions)
 }
 
 func (m *mockUserRepo) DoesEmailExist(ctx context.Context, email string) (bool, error) {
@@ -30,12 +30,15 @@ func TestRegister_Success(t *testing.T) {
 		DoesEmailExistFn: func(ctx context.Context, email string) (bool, error) {
 			return false, nil
 		},
-		CreateFn: func(ctx context.Context, firstName, lastName, email, password string) (*user_repo.Model, error) {
+		CreateFn: func(ctx context.Context, firstName, lastName, email, password, otp string, termsAndConditions bool) (*user_repo.Model, error) {
+
 			return &user_repo.Model{
-				UUID:      "test-uuid",
-				FirstName: firstName,
-				LastName:  lastName,
-				Email:     email,
+				UUID:               "test-uuid",
+				FirstName:          firstName,
+				LastName:           lastName,
+				Email:              email,
+				OTP:                otp,
+				TermsAndConditions: termsAndConditions,
 			}, nil
 		},
 	}
@@ -43,11 +46,12 @@ func TestRegister_Success(t *testing.T) {
 	handler := handlers.NewAuthHandler(mockRepo)
 	wrapped := output.MakeJsonHandler(handler.Register)
 
-	body := map[string]string{
-		"first_name": "Test",
-		"last_name":  "User",
-		"email":      "test@example.com",
-		"password":   "secure123",
+	body := map[string]interface{}{
+		"first_name":           "Test",
+		"last_name":            "User",
+		"email":                "test@example.com",
+		"password":             "secure123",
+		"terms_and_conditions": true,
 	}
 
 	res, status := util.TestJsonRequestAndDecode[handlers.ManualAuthResp](t, wrapped, http.MethodPost, "/api/auth/register", body)

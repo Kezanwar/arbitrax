@@ -23,6 +23,9 @@ func upCreateUserTable(ctx context.Context, tx *sql.Tx) error {
 		last_name VARCHAR(50),
 		email VARCHAR(120),
 		password VARCHAR(120),
+		terms_and_conditions BOOLEAN DEFAULT false,
+		email_confirmed BOOLEAN DEFAULT false,
+		otp VARCHAR(255),
 		created_at TIMESTAMP DEFAULT now(),
 		updated_at TIMESTAMP DEFAULT now()
 	)`

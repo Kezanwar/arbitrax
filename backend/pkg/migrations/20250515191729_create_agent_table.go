@@ -26,7 +26,9 @@ func upCreateAgentTable(ctx context.Context, tx *sql.Tx) error {
 	   take_profit DOUBLE PRECISION NOT NULL,
 	   exchanges TEXT[] NOT NULL,
 	   strategies TEXT[] NOT NULL,
+	   ai_orchestrated BOOLEAN DEFAULT false,
 	   test_mode BOOLEAN DEFAULT false,
+	   deleted BOOLEAN DEFAULT false,
 	   created_at TIMESTAMP DEFAULT now(),
 	   updated_at TIMESTAMP DEFAULT now()
       );

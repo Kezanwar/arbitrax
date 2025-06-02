@@ -3,6 +3,7 @@ package handlers
 import (
 	user_repo "Arbitrax/pkg/repositories/user"
 
+	"Arbitrax/pkg/otp"
 	"Arbitrax/pkg/output"
 	"Arbitrax/pkg/services/jwt"
 	"Arbitrax/pkg/services/validate"
@@ -24,15 +25,19 @@ type AutoAuthResp struct {
 
 // Request types
 type RegisterReqBody struct {
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	Password  string `json:"password"`
+	FirstName          string `json:"first_name"`
+	LastName           string `json:"last_name"`
+	Email              string `json:"email"`
+	Password           string `json:"password"`
+	TermsAndConditions bool   `json:"terms_and_conditions"`
 }
 
 func (r *RegisterReqBody) validate() error {
 	if !validate.StrNotEmpty(r.FirstName, r.LastName, r.Email, r.Password) {
 		return fmt.Errorf("Request body invalid")
+	}
+	if !r.TermsAndConditions {
+		return fmt.Errorf("Terms and conditions must be accepted")
 	}
 	return nil
 }
@@ -76,7 +81,13 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) (int, err
 		return http.StatusBadRequest, fmt.Errorf("This email already exists")
 	}
 
-	usr, err := h.UserRepo.Create(r.Context(), body.FirstName, body.LastName, body.Email, body.Password)
+	// Generate OTP for email verification
+	userOTP, err := otp.Generate()
+	if err != nil {
+		return http.StatusInternalServerError, fmt.Errorf("failed to generate OTP: %w", err)
+	}
+
+	usr, err := h.UserRepo.Create(r.Context(), body.FirstName, body.LastName, body.Email, body.Password, userOTP, body.TermsAndConditions)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
