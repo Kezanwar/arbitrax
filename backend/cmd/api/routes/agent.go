@@ -11,5 +11,6 @@ import (
 func AgentRoutes(r *mux.Router, h *handlers.AgentHandler, authCached middleware.Middleware) {
 	output.MakeRoute(r, "/", h.GetAgents, authCached).Methods("GET", "OPTIONS")
 	output.MakeRoute(r, "/create", h.CreateAgent, authCached).Methods("POST", "OPTIONS")
+	output.MakeRoute(r, "/:id/edit", h.CreateAgent, authCached).Methods("POST", "OPTIONS")
 
 }

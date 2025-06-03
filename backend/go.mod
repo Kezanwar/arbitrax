@@ -5,13 +5,13 @@ go 1.23.1
 toolchain go1.23.4
 
 require (
+	github.com/georgysavva/scany v1.2.3
 	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v4 v4.18.3
 	github.com/joho/godotenv v1.5.1
 )
 
 require (
-	github.com/georgysavva/scany v1.2.3 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
@@ -21,6 +21,8 @@ require (
 	github.com/jackc/pgtype v1.14.0 // indirect
 	github.com/jackc/puddle v1.3.0 // indirect
 	github.com/mfridman/interpolate v0.0.2 // indirect
+	github.com/sendgrid/rest v2.6.9+incompatible // indirect
+	github.com/sendgrid/sendgrid-go v3.16.1+incompatible // indirect
 	github.com/sethvargo/go-retry v0.3.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect

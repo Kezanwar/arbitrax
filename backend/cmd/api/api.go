@@ -5,12 +5,14 @@ import (
 	"Arbitrax/cmd/api/routes"
 	options_memory_cache "Arbitrax/pkg/cache/options_memory"
 	user_memory_cache "Arbitrax/pkg/cache/user_memory"
+	"Arbitrax/pkg/email"
 	"Arbitrax/pkg/middleware"
 	agent_repo "Arbitrax/pkg/repositories/agent"
 	exchanges_repo "Arbitrax/pkg/repositories/exchanges"
 	strategy_repo "Arbitrax/pkg/repositories/strategies"
 	user_repo "Arbitrax/pkg/repositories/user"
 	"context"
+	"log"
 	"net/http"
 	"time"
 
@@ -21,6 +23,12 @@ import (
 func NewAPI(ctx context.Context, pool *pgxpool.Pool, client *http.Client) (*http.Server, error) {
 
 	TWO_HOURS := 2 * time.Hour
+
+	_, err := email.NewClient()
+
+	if err != nil {
+		log.Fatalf("Email client failed to init: %v", err)
+	}
 
 	//memory cache
 	userCache := user_memory_cache.New(TWO_HOURS)
